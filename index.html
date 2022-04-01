@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+        <div>이름 : <input type = "text" id = "name"/></div>
+        <div>지역 : 
+         <select id = "city" onchange="changeCity();">
+            <!-- <option value = "01" selected>서울</option>
+            <option value = "02" >경1기</option>             -->
+            </select>
+        </div>
+        <div>동네 :
+            <select id="region_01">
+                <option value="01">강남</option>
+                <option value="02">도봉</option>
+                <option value="03">노원</option>                
+                <option value="04">강북</option>                
+                <option value="05">성북</option>                
+            </select>
+
+            <select id="region_02" style="display : none">
+                <option value="01">남양주</option>
+                <option value="02">의정부</option>                
+            </select>
+
+        </div>
+        <div>테스트 : <input type="text" id="test" value=""/></div>
+
+        <button type="button" onclick="rgist()">등록</button>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+    crossorigin="anonymous"></script>
+
+
+    <script>
+    
+    loadCity();
+
+    $(document).ready(function() {
+        $('#region_01').hide();
+        $('#region_02').hide();
+
+        
+        $('#name').change(function(){
+            if( $('#name').val() =='이준재'){
+                
+                // Value 로 선택
+                $('#city').val('01').prop('selected',true); 
+                //Text 로 선택
+                 $('#city option').filter(function(){
+                     return $(this).text()==='서울';
+                 }).attr('selected',true);
+
+                //$('#region_01').val('02').prop('selected',true); // Value 로 선택
+               //Text 로 선택
+               $('#region_01 option').filter(function(){
+                    return $(this).text()==='도봉';
+               }).attr('selected',true);
+            console.log($('#region_01').val());
+
+               
+            }
+            changeCity();
+        });
+
+        $('#region_01').change(function() {
+                
+            console.log($('#region_01 option:selected').text());        
+            console.log($('#region_01 option:selected').val());  
+            
+            
+        });
+
+        // $('#city').click(function(){
+        //     changeCity();
+        // });
+
+
+    });
+
+
+
+
+
+    function rgist() {
+        //alert(document.getElementById("name").value);
+        //alert(document.getElementById("city").value);
+        
+        //상위 내역을 jquery 로 변경
+        // alert($("#name").val());
+        // alert($("#city").text());
+
+        // 오프젝트
+        let obj = {};
+
+        obj.name=$("#name").val();
+        obj.city=$("#city").val();
+        // console.log(obj);
+        printconsole(obj);
+    }
+    function changeCity() {
+
+            // alert($("#name").val());
+    //    let city = document.getElementById("city").value;
+        
+    //    document.getElementById("region_01").style.display="none"
+    //    document.getElementById("region_02").style.display="none"
+
+    //    document.getElementById("region_"+city).style.display=""
+
+    // var, let, const
+
+
+    let city = $('#city').val();
+    // let city_text = $('#city option:selected').text();  //선택된 값
+    $('#region_01').hide();
+    $('#region_02').hide();
+
+    $('#region_'+city).show();
+
+    // alert(city_text);
+    let x = 1;
+    x = x+2
+    document.getElementById("test").value = x;
+    
+    }
+
+    function printconsole(data_obj){
+        console.log(data_obj);
+    }
+
+    function loadCity(){
+        //alert('1');
+        let arr_city = [
+            {code:"01",name:"서울"},
+            {code:"02",name:"경기"},
+            {code:"03",name:"부산"}
+        ];
+        //alert('2');
+
+        for(let i=0; i<arr_city.length; i++) {
+            if(i==0){
+                $('#city').append('<option value="'+arr_city[i].code+'" selected>'+arr_city[i].name+'</option');
+            }else{
+                $('#city').append('<option value="'+arr_city[i].code+'"">'+ arr_city[i].name +'</option>');
+            }            
+        }
+
+
+        //  $('#city option:eq(1)').prop('selected',true); // 인덱스로 선택
+        //  $('#city').val(arr_city[1].code).prop('selected',true); // 값으로 선택
+
+    }
+
+    
+
+    </script>
+
+
+</body>
+</html>
